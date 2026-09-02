@@ -58,7 +58,7 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
             <div className="relative z-10 mx-auto max-w-5xl">
               <h2 className="text-balance text-[clamp(3rem,8vw,7.4rem)] font-semibold leading-[.9] tracking-[-.065em]">
                 {title}<br />
-                <em className="font-serif font-normal text-[#a8e84a]">{accent}</em>
+                <em className="font-serif font-normal text-[#79a83d]">{accent}</em>
               </h2>
               <p className="mx-auto mt-8 max-w-2xl font-serif text-base leading-relaxed text-white/60 md:text-xl">{intro}</p>
             </div>

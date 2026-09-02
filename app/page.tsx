@@ -99,7 +99,7 @@ export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand-logo" href="#inicio" aria-label="Consulpec — Inicio"><img src="/logo-consulpec.jpeg" alt="Consulpec" /></a>
+        <a className="brand-logo" href="#inicio" aria-label="Consulpec — Inicio"><img src="/logo-consulpec-mark.png" alt="Consulpec" /></a>
         <nav className={menuOpen ? 'nav-open' : ''} aria-label="Navegación principal">
           <a href="#servicios" onClick={() => setMenuOpen(false)}>{t.nav[0]}</a>
           <a href="#proyectos" onClick={() => setMenuOpen(false)}>{t.nav[1]}</a>
@@ -115,7 +115,7 @@ export default function Home() {
       <section className="hero" id="inicio">
         <div className="hero-copy">
           <div className="eyebrow">{t.eyebrow}</div>
-          <h1>{t.titleA} <em>{t.titleB}</em></h1>
+          <h1 className="hero-mark"><img src="/logo-consulpec-mark.png" alt="Consulpec" /><span className="sr-only">{t.titleA} {t.titleB}</span></h1>
           <p className="hero-lead">{t.lead}</p>
           <div className="hero-cta"><a className="button-primary" href="#servicios">{t.how} <ArrowUpRight size={18} /></a><a className="text-link" href="#proyectos">{t.projectsLink}</a></div>
         </div>
@@ -156,7 +156,7 @@ export default function Home() {
 
       <footer>
         <div className="footer-left">
-          <a className="brand-logo footer-logo" href="#inicio" aria-label="Consulpec — Inicio"><img src="/logo-consulpec.jpeg" alt="Consulpec" /></a>
+          <a className="brand-logo footer-logo" href="#inicio" aria-label="Consulpec — Inicio"><img src="/logo-consulpec-mark.png" alt="Consulpec" /></a>
           <div className="footer-socials">
             <a className="social-button" href="https://www.instagram.com/consulpecpy/" target="_blank" rel="noreferrer"><img className="social-logo" src="https://cdn.simpleicons.org/instagram/a8e84a" alt=""/>Instagram</a>
             <a className="social-button whatsapp" href="https://wa.me/595981413587" target="_blank" rel="noreferrer"><MessageCircle size={17}/>WhatsApp</a>

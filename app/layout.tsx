@@ -9,6 +9,11 @@ const siteUrl = productionHost
 export const metadata: Metadata = {
   title: 'Consulpec | Inteligencia aplicada al campo',
   description: 'Relevamiento, mapeo, proyectos de intensificación y acompañamiento técnico para el campo paraguayo.',
+  icons: {
+    icon: [{ url: '/logo-consulpec-mark.png', type: 'image/png' }],
+    shortcut: '/logo-consulpec-mark.png',
+    apple: '/logo-consulpec-mark.png',
+  },
   metadataBase: new URL(siteUrl),
   openGraph: {
     title: 'Consulpec | Inteligencia aplicada al campo',
