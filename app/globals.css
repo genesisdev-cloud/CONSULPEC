@@ -35,7 +35,7 @@ img { display:block; max-width:100%; }
 h1 { margin:30px 0 24px; max-width:760px; font-size:clamp(58px,6.1vw,104px); line-height:.91; letter-spacing:-.065em; font-weight:800; }
 h1 em { display:block; color:var(--lime-dark); font-family:Georgia,'Times New Roman',serif; font-weight:400; }
 .hero-mark { margin:24px 0 20px; }
-.hero-mark img { width:clamp(330px,39vw,560px); height:auto; mix-blend-mode:multiply; }
+.hero-mark img { width:clamp(330px,39vw,560px); height:auto; }
 .hero-lead { max-width:610px; color:var(--muted); font-family:Georgia,'Times New Roman',serif; font-size:clamp(17px,1.35vw,22px); line-height:1.55; }
 .hero-cta { display:flex; align-items:center; gap:28px; margin-top:30px; }
 .button-primary { display:inline-flex; align-items:center; gap:14px; background:var(--lime-dark); color:white; padding:16px 19px; border-radius:3px; font-size:13px; font-weight:900; transition:transform .2s,background .2s; }
