@@ -2,9 +2,8 @@
 
 import { useState } from 'react';
 import {
-  ArrowRight, ArrowUpRight, BarChart3, Check, ChevronDown, ClipboardCheck,
-  ExternalLink, Layers3, Map, MapPin, Menu, MessageCircle, PackageCheck,
-  ScanLine, Share2, Tractor,
+  ArrowRight, ArrowUpRight, ChevronDown, ExternalLink, Layers3,
+  MapPin, Menu, MessageCircle, Share2,
 } from 'lucide-react';
 import StickyScroll from '@/components/ui/sticky-scroll';
 
@@ -100,7 +99,7 @@ export default function Home() {
   return (
     <main>
       <header className="site-header">
-        <a className="brand" href="#inicio" aria-label="Consulpec — Inicio"><span className="brand-mark"><ScanLine size={23} strokeWidth={2.4} /></span><span>CONSULPEC</span></a>
+        <a className="brand-logo" href="#inicio" aria-label="Consulpec — Inicio"><img src="/logo-consulpec.jpeg" alt="Consulpec" /></a>
         <nav className={menuOpen ? 'nav-open' : ''} aria-label="Navegación principal">
           <a href="#servicios" onClick={() => setMenuOpen(false)}>{t.nav[0]}</a>
           <a href="#proyectos" onClick={() => setMenuOpen(false)}>{t.nav[1]}</a>
@@ -115,14 +114,13 @@ export default function Home() {
 
       <section className="hero" id="inicio">
         <div className="hero-copy">
-          <div className="eyebrow"><span /> {t.eyebrow}</div>
+          <div className="eyebrow">{t.eyebrow}</div>
           <h1>{t.titleA} <em>{t.titleB}</em></h1>
           <p className="hero-lead">{t.lead}</p>
           <div className="hero-cta"><a className="button-primary" href="#servicios">{t.how} <ArrowUpRight size={18} /></a><a className="text-link" href="#proyectos">{t.projectsLink}</a></div>
-          <div className="hero-metrics" aria-label="Indicadores destacados"><div><strong>360°</strong><span>{t.metrics[0]}</span></div><div><strong>1:1</strong><span>{t.metrics[1]}</span></div><div><strong>PY</strong><span>{t.metrics[2]}</span></div></div>
         </div>
         <div className="hero-visual" aria-label="Trabajo de campo y alambrado eléctrico">
-          <img src="/campo-consulpec.jpg" alt="Instalación rural de alambrado eléctrico en Paraguay" />
+          <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1600&auto=format&fit=crop&q=88" alt="Ganado en una pastura productiva" />
           <div className="map-card"><span className="map-pin"><MapPin size={17} /></span><div><small>{t.active}</small><strong>{t.parcel}</strong></div><span className="status-dot" /></div>
           <svg className="contour" viewBox="0 0 520 690" aria-hidden="true"><path d="M468 36C349 79 402 170 292 208C182 246 152 335 232 402C312 469 273 539 168 575C103 597 66 627 45 668" /><path d="M510 74C398 111 449 198 331 241C213 284 199 341 274 410C349 479 323 568 207 606C152 624 119 647 94 683" /></svg>
           <div className="floating-note"><MessageCircle size={18} /><span>{t.action}<br/><strong>{t.concrete}</strong></span></div>
@@ -134,12 +132,11 @@ export default function Home() {
       <section className="section services" id="servicios">
         <div className="section-head"><div><p className="section-kicker">{t.serviceKicker}</p><h2>{t.serviceTitle}</h2></div><p>{t.serviceIntro}</p></div>
         <div className="service-grid">
-          {t.services.map((service, index) => (
+          {t.services.map((service) => (
             <article className="service-card" key={service.n}>
-              <div className="service-icon">{[<Map key="a"/>,<Tractor key="b"/>,<ClipboardCheck key="c"/>,<BarChart3 key="d"/>][index]}</div>
-              <span className="service-number">{service.n}</span><h3>{service.title}</h3><p>{service.desc}</p>
-              <ol>{service.steps.map((step) => <li key={step}><Check size={13}/>{step}</li>)}</ol>
-              <div className="deliverable"><PackageCheck size={17}/><span><small>{lang === 'en' ? 'YOU RECEIVE' : lang === 'pt' ? 'VOCÊ RECEBE' : 'RECIBÍS'}</small>{service.deliver}</span></div>
+              <h3>{service.title}</h3><p>{service.desc}</p>
+              <ol>{service.steps.map((step) => <li key={step}>{step}</li>)}</ol>
+              <div className="deliverable"><span><small>{lang === 'en' ? 'YOU RECEIVE' : lang === 'pt' ? 'VOCÊ RECEBE' : 'RECIBÍS'}</small>{service.deliver}</span></div>
             </article>
           ))}
         </div>
@@ -147,7 +144,7 @@ export default function Home() {
       </section>
 
       <div id="proyectos" className="gallery-anchor">
-        <StickyScroll eyebrow={t.galleryEyebrow} title={t.galleryTitle} accent={t.galleryAccent} intro={t.galleryIntro} locationLabel={t.galleryLocation} />
+        <StickyScroll title={t.galleryTitle} accent={t.galleryAccent} intro={t.galleryIntro} locationLabel={t.galleryLocation} />
       </div>
 
       <section className="section knowledge" id="conocimiento">
@@ -157,7 +154,17 @@ export default function Home() {
 
       <section className="closing-cta" id="contacto"><div className="cta-orbit"><Layers3 size={35}/></div><h2>{t.ctaTitle}</h2><p>{t.ctaText}</p><a href="https://wa.me/595981413587" target="_blank" rel="noreferrer">{t.ctaButton}<ArrowUpRight size={18}/></a></section>
 
-      <footer><a className="brand footer-brand" href="#inicio"><span className="brand-mark"><ScanLine size={23}/></span><span>CONSULPEC</span></a><p>{t.footer}</p><div><a href="https://www.instagram.com/consulpecpy/" target="_blank" rel="noreferrer">Instagram</a><a href="#proyectos">{t.nav[1]}</a><span>© 2026 {t.rights}</span></div></footer>
+      <footer>
+        <div className="footer-left">
+          <a className="brand-logo footer-logo" href="#inicio" aria-label="Consulpec — Inicio"><img src="/logo-consulpec.jpeg" alt="Consulpec" /></a>
+          <div className="footer-socials">
+            <a className="social-button" href="https://www.instagram.com/consulpecpy/" target="_blank" rel="noreferrer"><img className="social-logo" src="https://cdn.simpleicons.org/instagram/a8e84a" alt=""/>Instagram</a>
+            <a className="social-button whatsapp" href="https://wa.me/595981413587" target="_blank" rel="noreferrer"><MessageCircle size={17}/>WhatsApp</a>
+          </div>
+          <span className="footer-rights">© 2026 {t.rights}</span>
+        </div>
+        <a className="genesis-credit" href="https://www.genesis.com.py/" target="_blank" rel="noreferrer">Desarrollado por <strong>Génesis</strong><ArrowUpRight size={15}/></a>
+      </footer>
     </main>
   );
 }

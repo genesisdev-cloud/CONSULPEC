@@ -2,10 +2,9 @@
 
 import { ReactLenis } from 'lenis/react';
 import React, { forwardRef } from 'react';
-import { ArrowDown, MapPin, ScanLine } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 type StickyScrollProps = {
-  eyebrow: string;
   title: string;
   accent: string;
   intro: string;
@@ -50,24 +49,18 @@ const GalleryImage = ({ src, index, className }: { src: string; index: number; c
 );
 
 const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
-  ({ eyebrow, title, accent, intro, locationLabel }, ref) => {
+  ({ title, accent, intro, locationLabel }, ref) => {
     return (
       <ReactLenis root>
         <section ref={ref} className="bg-[#071e18] text-white">
           <div className="relative grid min-h-[88vh] place-content-center overflow-hidden px-5 py-24 text-center md:sticky md:top-0 md:h-screen">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#a8e84a12_1px,transparent_1px),linear-gradient(to_bottom,#a8e84a12_1px,transparent_1px)] bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_65%_55%_at_50%_0%,#000_68%,transparent_100%)]" />
             <div className="relative z-10 mx-auto max-w-5xl">
-              <div className="mx-auto mb-7 flex w-fit items-center gap-3 text-[10px] font-bold uppercase tracking-[.2em] text-[#a8e84a]">
-                <ScanLine className="size-4" /> {eyebrow}
-              </div>
               <h2 className="text-balance text-[clamp(3rem,8vw,7.4rem)] font-semibold leading-[.9] tracking-[-.065em]">
                 {title}<br />
                 <em className="font-serif font-normal text-[#a8e84a]">{accent}</em>
               </h2>
               <p className="mx-auto mt-8 max-w-2xl font-serif text-base leading-relaxed text-white/60 md:text-xl">{intro}</p>
-              <div className="mx-auto mt-12 grid size-12 place-items-center rounded-full border border-white/20 text-[#a8e84a]">
-                <ArrowDown className="size-5 animate-bounce" />
-              </div>
             </div>
           </div>
 
