@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import {
-  ArrowRight, ArrowUpRight, ChevronDown, ExternalLink, Layers3,
+  ArrowRight, ArrowUpRight, ExternalLink,
   MapPin, Menu, MessageCircle, Share2,
 } from 'lucide-react';
 import StickyScroll from '@/components/ui/sticky-scroll';
@@ -12,7 +12,7 @@ type Lang = 'es' | 'en' | 'pt';
 const articleImages = [
   'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1200&auto=format&fit=crop&q=84',
   'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=84',
-  'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1200&auto=format&fit=crop&q=84',
+  'https://images.unsplash.com/photo-1645727527942-f12e14a0c841?w=1200&auto=format&fit=crop&q=84',
 ];
 
 const copy = {
@@ -106,7 +106,9 @@ export default function Home() {
           <a href="#conocimiento" onClick={() => setMenuOpen(false)}>{t.nav[2]}</a>
         </nav>
         <div className="header-actions">
-          <label className="language"><span className="sr-only">Language</span><select value={lang} onChange={(e) => setLang(e.target.value as Lang)}><option value="es">ES</option><option value="en">EN</option><option value="pt">PT</option></select><ChevronDown size={14} /></label>
+          <div className="language-switch" role="group" aria-label="Idioma">
+            {(['es', 'en', 'pt'] as const).map((language) => <button className={lang === language ? 'active' : ''} type="button" key={language} onClick={() => setLang(language)} aria-pressed={lang === language}>{language.toUpperCase()}</button>)}
+          </div>
           <button className="mobile-menu" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu"><Menu size={21}/></button>
           <a className="quote-link" href="https://wa.me/595981413587" target="_blank" rel="noreferrer">{t.quote} <ArrowUpRight size={17} /></a>
         </div>
@@ -115,22 +117,21 @@ export default function Home() {
       <section className="hero" id="inicio">
         <div className="hero-copy">
           <div className="eyebrow">{t.eyebrow}</div>
-          <h1 className="hero-mark"><img src="/logo-consulpec-mark.png" alt="Consulpec" /><span className="sr-only">{t.titleA} {t.titleB}</span></h1>
+          <h1 className="hero-mark"><img src="/logo-consulpec-full.png" alt="Consulpec" /><span className="sr-only">{t.titleA} {t.titleB}</span></h1>
           <p className="hero-lead">{t.lead}</p>
-          <div className="hero-cta"><a className="button-primary" href="#servicios">{t.how} <ArrowUpRight size={18} /></a><a className="text-link" href="#proyectos">{t.projectsLink}</a></div>
+          <div className="hero-cta"><a className="button-primary" href="#servicios">{t.how} <ArrowUpRight size={18} /></a></div>
         </div>
         <div className="hero-visual" aria-label="Trabajo de campo y alambrado eléctrico">
-          <img src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1600&auto=format&fit=crop&q=88" alt="Ganado en una pastura productiva" />
+          <img src="https://images.unsplash.com/photo-1576159600338-11e2157fbcf2?w=1600&auto=format&fit=crop&q=88" alt="Rostro de un bovino en el campo" />
           <div className="map-card"><span className="map-pin"><MapPin size={17} /></span><div><small>{t.active}</small><strong>{t.parcel}</strong></div><span className="status-dot" /></div>
           <svg className="contour" viewBox="0 0 520 690" aria-hidden="true"><path d="M468 36C349 79 402 170 292 208C182 246 152 335 232 402C312 469 273 539 168 575C103 597 66 627 45 668" /><path d="M510 74C398 111 449 198 331 241C213 284 199 341 274 410C349 479 323 568 207 606C152 624 119 647 94 683" /></svg>
-          <div className="floating-note"><MessageCircle size={18} /><span>{t.action}<br/><strong>{t.concrete}</strong></span></div>
         </div>
       </section>
 
       <div className="field-strip" aria-hidden="true">{stripWords.map((word) => <span key={word}>{word}<i /></span>)}</div>
 
       <section className="section services" id="servicios">
-        <div className="section-head"><div><p className="section-kicker">{t.serviceKicker}</p><h2>{t.serviceTitle}</h2></div><p>{t.serviceIntro}</p></div>
+        <div className="section-head section-head-single"><div><p className="section-kicker">{t.serviceKicker}</p><h2>{t.serviceTitle}</h2></div></div>
         <div className="service-grid">
           {t.services.map((service) => (
             <article className="service-card" key={service.n}>
@@ -140,7 +141,7 @@ export default function Home() {
             </article>
           ))}
         </div>
-        <div className="process-row"><strong>{t.process}</strong>{t.processSteps.map((step, i) => <div key={step}><span>0{i+1}</span><p>{step}</p>{i < 3 && <ArrowRight size={16}/>}</div>)}</div>
+        <div className="process-row"><strong>{t.process}</strong>{t.processSteps.map((step, i) => <div className="process-step" key={step}><p>{step}</p>{i < 3 && <ArrowRight className="process-arrow" size={17}/>}</div>)}</div>
       </section>
 
       <div id="proyectos" className="gallery-anchor">
@@ -148,11 +149,11 @@ export default function Home() {
       </div>
 
       <section className="section knowledge" id="conocimiento">
-        <div className="section-head"><div><p className="section-kicker">{t.knowledgeKicker}</p><h2>{t.knowledgeTitle}</h2></div><p>{t.knowledgeIntro}</p></div>
+        <div className="section-head section-head-single"><div><p className="section-kicker">{t.knowledgeKicker}</p><h2>{t.knowledgeTitle}</h2></div></div>
         <div className="article-grid">{t.articles.map((article,index) => <article className="article-card" key={article.title}><div className="article-img"><img src={articleImages[index]} alt="Trabajo de campo"/><span>{article.type}</span></div><div className="article-body"><small>{article.time}</small><h3>{article.title}</h3><div><a href="https://www.instagram.com/consulpecpy/" target="_blank" rel="noreferrer">{t.read}<ExternalLink size={14}/></a><button type="button" onClick={() => shareArticle(index,article.title)}><Share2 size={14}/>{shared === index ? t.shareDone : t.share}</button></div></div></article>)}</div>
       </section>
 
-      <section className="closing-cta" id="contacto"><div className="cta-orbit"><Layers3 size={35}/></div><h2>{t.ctaTitle}</h2><p>{t.ctaText}</p><a href="https://wa.me/595981413587" target="_blank" rel="noreferrer">{t.ctaButton}<ArrowUpRight size={18}/></a></section>
+      <section className="closing-cta" id="contacto"><h2>{t.ctaTitle}</h2><p>{t.ctaText}</p><a href="https://wa.me/595981413587" target="_blank" rel="noreferrer">{t.ctaButton}<ArrowUpRight size={18}/></a></section>
 
       <footer>
         <div className="footer-left">
@@ -163,6 +164,11 @@ export default function Home() {
           </div>
           <span className="footer-rights">© 2026 {t.rights}</span>
         </div>
+        <nav className="footer-nav" aria-label="Navegación del pie">
+          <a href="#servicios">{t.nav[0]}</a>
+          <a href="#proyectos">{t.nav[1]}</a>
+          <a href="#conocimiento">{t.nav[2]}</a>
+        </nav>
         <a className="genesis-credit" href="https://www.genesis.com.py/" target="_blank" rel="noreferrer">Desarrollado por <strong>Génesis</strong><ArrowUpRight size={15}/></a>
       </footer>
     </main>

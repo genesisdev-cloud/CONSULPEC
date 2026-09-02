@@ -11,40 +11,43 @@ type StickyScrollProps = {
   locationLabel: string;
 };
 
+type GalleryItem =
+  | { kind: 'image'; src: string }
+  | { kind: 'instagram'; src: string; title: string };
+
 const leftImages = [
-  'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1523742810063-62fb4cf8f6d5?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1472396961693-142e6e269027?w=1000&auto=format&fit=crop&q=82',
-];
+  { kind: 'image', src: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1000&auto=format&fit=crop&q=82' },
+  { kind: 'image', src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1000&auto=format&fit=crop&q=82' },
+  { kind: 'instagram', src: 'https://www.instagram.com/consulpecpy/reel/DRfHg4ZkREx/embed/', title: 'Video de campo de Consulpec' },
+  { kind: 'image', src: 'https://images.unsplash.com/photo-1598958944683-b5e33434cb89?w=1000&auto=format&fit=crop&q=82' },
+  { kind: 'instagram', src: 'https://www.instagram.com/consulpecpy/reel/DIHd66uxwoE/embed/', title: 'Proyecto en campo de Consulpec' },
+] satisfies GalleryItem[];
 
 const centerImages = [
-  'https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=1000&auto=format&fit=crop&q=86',
-  'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1000&auto=format&fit=crop&q=86',
-  'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1000&auto=format&fit=crop&q=86',
-];
+  { kind: 'image', src: 'https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=1000&auto=format&fit=crop&q=86' },
+  { kind: 'image', src: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1000&auto=format&fit=crop&q=86' },
+  { kind: 'image', src: 'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1000&auto=format&fit=crop&q=86' },
+] satisfies GalleryItem[];
 
 const rightImages = [
-  'https://images.unsplash.com/photo-1486754735734-325b5831c3ad?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1516467508483-a7212febe31a?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1530267981375-f0de937f5f13?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1461354464878-ad92f492a5a0?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1589923188900-85dae523342b?w=1000&auto=format&fit=crop&q=82',
-];
+  { kind: 'image', src: 'https://images.unsplash.com/photo-1486754735734-325b5831c3ad?w=1000&auto=format&fit=crop&q=82' },
+  { kind: 'instagram', src: 'https://www.instagram.com/consulpecpy/reel/DbCWDsvOvjL/embed/', title: 'Reel de Consulpec Paraguay' },
+  { kind: 'image', src: 'https://images.unsplash.com/photo-1530267981375-f0de937f5f13?w=1000&auto=format&fit=crop&q=82' },
+  { kind: 'instagram', src: 'https://www.instagram.com/consulpecpy/p/DcwapgSqPBL/embed/', title: 'Fotografía de Consulpec Paraguay' },
+  { kind: 'image', src: 'https://images.unsplash.com/photo-1589923188900-85dae523342b?w=1000&auto=format&fit=crop&q=82' },
+] satisfies GalleryItem[];
 
-const GalleryImage = ({ src, index, className }: { src: string; index: number; className?: string }) => (
+const GalleryImage = ({ item, index, className }: { item: GalleryItem; index: number; className?: string }) => (
   <figure className={`group relative w-full overflow-hidden bg-[#18392f] ${className ?? ''}`}>
-    <img
-      src={src}
-      alt={`Trabajo rural y producción de campo ${index + 1}`}
-      className="h-full w-full object-cover saturate-[.82] transition-all duration-700 group-hover:scale-[1.035] group-hover:saturate-100"
-      loading={index > 2 ? 'lazy' : 'eager'}
-    />
-    <span className="absolute inset-0 bg-gradient-to-t from-[#071e18]/45 via-transparent to-transparent" />
-    <span className="absolute bottom-4 left-4 flex items-center gap-2 text-[9px] font-bold uppercase tracking-[.16em] text-white/90">
-      <MapPin className="size-3 text-[#a8e84a]" /> Paraguay · 0{index + 1}
-    </span>
+    {item.kind === 'instagram' ? (
+      <iframe className="h-full w-full border-0 bg-white" src={item.src} title={item.title} loading="lazy" allow="autoplay; encrypted-media; picture-in-picture" />
+    ) : (
+      <>
+        <img src={item.src} alt={`Trabajo rural y producción de campo ${index + 1}`} className="h-full w-full object-cover saturate-[.82] transition-all duration-700 group-hover:scale-[1.035] group-hover:saturate-100" loading={index > 2 ? 'lazy' : 'eager'} />
+        <span className="absolute inset-0 bg-gradient-to-t from-[#071e18]/45 via-transparent to-transparent" />
+        <span className="absolute bottom-4 left-4 flex items-center gap-2 text-[9px] font-bold uppercase tracking-[.16em] text-white/90"><MapPin className="size-3 text-[#a8e84a]" /> Paraguay · 0{index + 1}</span>
+      </>
+    )}
   </figure>
 );
 
@@ -66,15 +69,15 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
 
           <div className="relative z-10 grid grid-cols-2 gap-1 bg-[#071e18] p-1 md:grid-cols-12 md:gap-2 md:p-2">
             <div className="col-span-1 grid gap-1 md:col-span-4 md:gap-2">
-              {leftImages.map((src, index) => <GalleryImage key={src} src={src} index={index} className="h-[46vh] min-h-72 rounded-sm md:h-[31rem]" />)}
+              {leftImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index} className="h-[46vh] min-h-72 rounded-sm md:h-[31rem]" />)}
             </div>
 
             <div className="col-span-1 grid h-fit gap-1 md:sticky md:top-0 md:col-span-4 md:h-screen md:grid-rows-3 md:gap-2">
-              {centerImages.map((src, index) => <GalleryImage key={src} src={src} index={index + 5} className="h-[46vh] min-h-72 rounded-sm md:h-auto md:min-h-0" />)}
+              {centerImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index + 5} className="h-[46vh] min-h-72 rounded-sm md:h-auto md:min-h-0" />)}
             </div>
 
             <div className="col-span-2 grid grid-cols-2 gap-1 md:col-span-4 md:grid-cols-1 md:gap-2">
-              {rightImages.map((src, index) => <GalleryImage key={src} src={src} index={index + 8} className="h-[38vh] min-h-64 rounded-sm md:h-[31rem]" />)}
+              {rightImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index + 8} className="h-[38vh] min-h-64 rounded-sm md:h-[31rem]" />)}
             </div>
           </div>
 
