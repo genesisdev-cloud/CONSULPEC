@@ -3,11 +3,11 @@ import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Consulpec | Inteligencia aplicada al campo',
-  description: 'Relevamiento, mapeo, proyectos de intensificación, acompañamiento técnico e insumos para el campo paraguayo.',
+  description: 'Relevamiento, mapeo, proyectos de intensificación y acompañamiento técnico para el campo paraguayo.',
   metadataBase: new URL('https://consulpec-paraguay.smrcartes.chatgpt.site'),
   openGraph: {
     title: 'Consulpec | Inteligencia aplicada al campo',
-    description: 'Decisiones de campo, hechas visibles. Consultoría, mapeo, intensificación e insumos para el campo paraguayo.',
+    description: 'Decisiones de campo, hechas visibles. Consultoría, mapeo e intensificación para el campo paraguayo.',
     url: 'https://consulpec-paraguay.smrcartes.chatgpt.site',
     siteName: 'Consulpec Paraguay',
     locale: 'es_PY',
