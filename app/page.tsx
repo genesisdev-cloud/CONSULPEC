@@ -100,7 +100,7 @@ export default function Home() {
     <main>
       <header className="site-header">
         <a className="brand-logo" href="#inicio" aria-label="Consulpec — Inicio"><img src="/logo-consulpec-mark.png" alt="Consulpec" /></a>
-        <nav className={menuOpen ? 'nav-open' : ''} aria-label="Navegación principal">
+        <nav id="primary-navigation" className={menuOpen ? 'nav-open' : ''} aria-label="Navegación principal">
           <a href="#servicios" onClick={() => setMenuOpen(false)}>{t.nav[0]}</a>
           <a href="#proyectos" onClick={() => setMenuOpen(false)}>{t.nav[1]}</a>
           <a href="#conocimiento" onClick={() => setMenuOpen(false)}>{t.nav[2]}</a>
@@ -109,7 +109,7 @@ export default function Home() {
           <div className="language-switch" role="group" aria-label="Idioma">
             {(['es', 'en', 'pt'] as const).map((language) => <button className={lang === language ? 'active' : ''} type="button" key={language} onClick={() => setLang(language)} aria-pressed={lang === language}>{language.toUpperCase()}</button>)}
           </div>
-          <button className="mobile-menu" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu"><Menu size={21}/></button>
+          <button className="mobile-menu" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu" aria-expanded={menuOpen} aria-controls="primary-navigation"><Menu size={21}/></button>
           <a className="quote-link" href="https://wa.me/595981413587" target="_blank" rel="noreferrer">{t.quote} <ArrowUpRight size={17} /></a>
         </div>
       </header>
