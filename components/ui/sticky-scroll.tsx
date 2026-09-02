@@ -45,8 +45,8 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
   ({ title, accent, intro, locationLabel }, ref) => {
     return (
       <ReactLenis root>
-        <section ref={ref} className="bg-[#071e18] text-white">
-          <div className="relative grid min-h-[88vh] place-content-center overflow-hidden px-5 py-24 text-center md:sticky md:top-0 md:h-screen">
+        <section ref={ref} className="gallery-scroll bg-[#071e18] text-white">
+          <div className="gallery-stage relative grid min-h-[88vh] place-content-center overflow-hidden px-5 py-24 text-center">
             <div className="absolute inset-0 bg-[linear-gradient(to_right,#a8e84a12_1px,transparent_1px),linear-gradient(to_bottom,#a8e84a12_1px,transparent_1px)] bg-[size:54px_54px] [mask-image:radial-gradient(ellipse_65%_55%_at_50%_0%,#000_68%,transparent_100%)]" />
             <div className="relative z-10 mx-auto max-w-5xl">
               <h2 className="text-balance text-[clamp(3rem,8vw,7.4rem)] font-semibold leading-[.9] tracking-[-.065em]">
@@ -57,12 +57,12 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
             </div>
           </div>
 
-          <div className="relative z-10 grid grid-cols-2 gap-1 bg-[#071e18] p-1 md:grid-cols-12 md:gap-2 md:p-2">
+          <div className="gallery-columns relative z-10 grid grid-cols-2 gap-1 bg-[#071e18] p-1 md:grid-cols-12 md:gap-2 md:p-2">
             <div className="col-span-1 grid gap-1 md:col-span-4 md:gap-2">
               {leftImages.map((src, index) => <GalleryImage key={src} src={src} index={index} className="h-[46vh] min-h-72 rounded-sm md:h-[31rem]" />)}
             </div>
 
-            <div className="col-span-1 grid h-fit gap-1 md:sticky md:top-0 md:col-span-4 md:h-screen md:grid-rows-3 md:gap-2">
+            <div className="gallery-center col-span-1 grid h-fit gap-1 md:col-span-4 md:grid-rows-3 md:gap-2">
               {centerImages.map((src, index) => <GalleryImage key={src} src={src} index={index + 5} className="h-[46vh] min-h-72 rounded-sm md:h-auto md:min-h-0" />)}
             </div>
 
