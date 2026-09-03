@@ -17,7 +17,7 @@ export default function CatalogoPage() {
     <main className="catalog-page">
       <header className="catalog-bar">
         <Link className="catalog-back" href="/"><ArrowLeft size={17}/>Volver al sitio</Link>
-        <Link className="catalog-brand" href="/" aria-label="Consulpec — Inicio"><Image src="/logo-consulpec-mark.png" alt="Consulpec" width={56} height={56} /></Link>
+        <Link className="catalog-brand" href="/" aria-label="Consulpec — Inicio"><Image src="/logo-consulpec-mark.png" alt="Consulpec" width={56} height={56} priority /></Link>
         <a className="catalog-open" href={PDF_PATH} target="_blank" rel="noreferrer">Abrir PDF<ExternalLink size={14}/></a>
       </header>
       <iframe className="catalog-viewer" src={`${PDF_PATH}#view=FitH`} title="Catálogo de productos Consulpec" />
