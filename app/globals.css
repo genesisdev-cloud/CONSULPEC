@@ -102,8 +102,18 @@ h1 em { display:block; color:var(--lime-dark); font-family:Georgia,'Times New Ro
 .request-form textarea { resize:vertical; min-height:112px; }
 .request-form input:focus,.request-form select:focus,.request-form textarea:focus { border-color:var(--lime-dark); box-shadow:0 0 0 3px rgba(121,168,61,.15); }
 .request-message { grid-column:1/-1; }
-.request-form button { grid-column:1/-1; display:flex; min-height:52px; align-items:center; justify-content:center; gap:10px; border:0; background:var(--lime-dark); color:white; font-size:12px; font-weight:900; cursor:pointer; transition:background .2s,transform .2s; }
-.request-form button:hover { background:#688f35; transform:translateY(-1px); }
+.request-actions { grid-column:1/-1; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; }
+.request-form .request-actions button { display:flex; min-height:58px; align-items:center; justify-content:center; gap:9px; border:0; padding:10px 16px; color:white; font-size:11px; font-weight:900; cursor:pointer; transition:background .2s,transform .2s; }
+.request-form .request-actions button:hover { transform:translateY(-1px); }
+.request-whatsapp { background:#1f9f5d; }
+.request-whatsapp:hover { background:#18834c; }
+.request-email { background:var(--deep); }
+.request-email:hover { background:#183f34; }
+.request-email:disabled { cursor:wait; opacity:.72; }
+.request-email>span { display:flex; flex-direction:column; align-items:flex-start; gap:2px; line-height:1.2; }
+.request-email small { color:rgba(255,255,255,.64); font-size:8px; font-weight:600; text-transform:none; }
+.request-status { grid-column:1/-1; margin:0; padding:12px 14px; background:#e7ecdf; color:#40602e; font-size:12px; line-height:1.4; }
+.request-status.error { background:#f6e6e2; color:#8b3328; }
 
 .knowledge { background:#e8ede4; }
 .article-grid { max-width:1380px; margin:auto; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
@@ -218,7 +228,8 @@ footer { min-height:270px; display:grid; grid-template-columns:1fr auto 1fr; ali
   .request-copy h3 { font-size:44px; }
   .request-copy>span { font-size:16px; }
   .request-form { grid-template-columns:1fr; padding:24px 18px; }
-  .request-message,.request-form button { grid-column:1; }
+  .request-message,.request-actions,.request-status { grid-column:1; }
+  .request-actions { grid-template-columns:1fr; }
   .closing-cta:before,.closing-cta:after { width:410px; height:280px; opacity:.75; }
   .closing-cta:before { left:-255px; top:-110px; }
   .closing-cta:after { right:-260px; bottom:-115px; }

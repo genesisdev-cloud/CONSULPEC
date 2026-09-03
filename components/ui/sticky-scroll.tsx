@@ -1,8 +1,10 @@
 'use client';
 
 import { ReactLenis } from 'lenis/react';
-import React, { forwardRef } from 'react';
-import { ArrowUpRight, MapPin } from 'lucide-react';
+import React, { forwardRef, useState } from 'react';
+import { ArrowUpRight, Mail, MapPin, MessageCircle } from 'lucide-react';
+
+const CORPORATE_EMAIL = 'comercial@consulpec.com.py';
 
 type RequestCopy = {
   kicker: string;
@@ -15,8 +17,12 @@ type RequestCopy = {
   servicePlaceholder: string;
   location: string;
   message: string;
-  submit: string;
-  optional: string;
+  whatsappSubmit: string;
+  emailSubmit: string;
+  sending: string;
+  success: string;
+  fallback: string;
+  error: string;
 };
 
 type StickyScrollProps = {
@@ -60,24 +66,76 @@ const GalleryImage = ({ src, index, className }: { src: string; index: number; c
 
 const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
   ({ title, accent, intro, request, services, whatsappNumber }, ref) => {
-    const submitRequest = (event: React.SyntheticEvent<HTMLFormElement>) => {
-      event.preventDefault();
-      const data = new FormData(event.currentTarget);
+    const [emailStatus, setEmailStatus] = useState<'idle' | 'sending' | 'success' | 'fallback' | 'error'>('idle');
+
+    const readForm = (form: HTMLFormElement) => {
+      const data = new FormData(form);
       const value = (key: string) => {
         const field = data.get(key);
         return typeof field === 'string' ? field : '';
       };
-      const lines = [
+      return {
+        name: value('name'), phone: value('phone'), email: value('email'), service: value('service'),
+        location: value('location'), message: value('message'),
+      };
+    };
+
+    const requestLines = (data: ReturnType<typeof readForm>) => [
         'Hola Consulpec, quiero solicitar un servicio.',
         '',
-        `Nombre: ${value('name')}`,
-        `Teléfono: ${value('phone')}`,
-        `Correo: ${value('email') || 'No indicado'}`,
-        `Servicio: ${value('service')}`,
-        `Ubicación: ${value('location')}`,
-        `Necesidad: ${value('message')}`,
+        `Nombre: ${data.name}`, `Teléfono: ${data.phone}`, `Correo: ${data.email}`,
+        `Servicio: ${data.service}`, `Ubicación: ${data.location}`, `Necesidad: ${data.message}`,
       ];
+
+    const submitWhatsApp = (event: React.MouseEvent<HTMLButtonElement>) => {
+      const form = event.currentTarget.form;
+      if (!form || !form.reportValidity()) return;
+      const lines = requestLines(readForm(form));
       window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener,noreferrer');
+    };
+
+    const submitEmail = async (event: React.SyntheticEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const form = event.currentTarget;
+      const data = readForm(form);
+      const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+      const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+      const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+      if (!serviceId || !templateId || !publicKey) {
+        const subject = encodeURIComponent(`Solicitud de servicio — ${data.service}`);
+        const body = encodeURIComponent(requestLines(data).join('\n'));
+        window.location.href = `mailto:${CORPORATE_EMAIL}?subject=${subject}&body=${body}`;
+        setEmailStatus('fallback');
+        return;
+      }
+
+      setEmailStatus('sending');
+      try {
+        const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            service_id: serviceId,
+            template_id: templateId,
+            user_id: publicKey,
+            template_params: {
+              to_email: CORPORATE_EMAIL,
+              from_name: data.name,
+              reply_to: data.email,
+              phone: data.phone,
+              service: data.service,
+              location: data.location,
+              message: data.message,
+            },
+          }),
+        });
+        if (!response.ok) throw new Error('EmailJS request failed');
+        setEmailStatus('success');
+        form.reset();
+      } catch {
+        setEmailStatus('error');
+      }
     };
 
     return (
@@ -114,14 +172,18 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
               <h3>{request.title}</h3>
               <span>{request.intro}</span>
             </div>
-            <form className="request-form" onSubmit={submitRequest}>
+            <form className="request-form" onSubmit={submitEmail}>
               <label><span>{request.name}</span><input name="name" type="text" autoComplete="name" required /></label>
               <label><span>{request.phone}</span><input name="phone" type="tel" autoComplete="tel" required /></label>
-              <label><span>{request.email} <small>{request.optional}</small></span><input name="email" type="email" autoComplete="email" /></label>
+              <label><span>{request.email}</span><input name="email" type="email" autoComplete="email" required /></label>
               <label><span>{request.service}</span><select name="service" defaultValue="" required><option value="" disabled>{request.servicePlaceholder}</option>{services.map((service) => <option key={service} value={service}>{service}</option>)}</select></label>
               <label><span>{request.location}</span><input name="location" type="text" autoComplete="address-level1" required /></label>
               <label className="request-message"><span>{request.message}</span><textarea name="message" rows={4} required /></label>
-              <button type="submit">{request.submit}<ArrowUpRight size={18}/></button>
+              <div className="request-actions">
+                <button className="request-whatsapp" type="button" onClick={submitWhatsApp}><MessageCircle size={18}/>{request.whatsappSubmit}<ArrowUpRight size={17}/></button>
+                <button className="request-email" type="submit" disabled={emailStatus === 'sending'}><Mail size={18}/><span>{emailStatus === 'sending' ? request.sending : request.emailSubmit}<small>{CORPORATE_EMAIL}</small></span><ArrowUpRight size={17}/></button>
+              </div>
+              {emailStatus !== 'idle' && <p className={`request-status ${emailStatus}`} role="status">{request[emailStatus]}</p>}
             </form>
           </div>
         </section>
