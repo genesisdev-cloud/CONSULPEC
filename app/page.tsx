@@ -1,13 +1,40 @@
 'use client';
 
 import { useState } from 'react';
+import Link from 'next/link';
 import {
   ArrowRight, ArrowUpRight, ExternalLink,
-  MapPin, Menu, MessageCircle, Share2,
+  MapPin, Menu, Share2,
 } from 'lucide-react';
 import StickyScroll from '@/components/ui/sticky-scroll';
 
 type Lang = 'es' | 'en' | 'pt';
+
+const WHATSAPP_NUMBER = '595971164885';
+
+const requestCopy = {
+  es: {
+    kicker: 'Solicitud de servicio', title: 'Contanos qué necesita tu campo.',
+    intro: 'Completá los datos y recibiremos tu solicitud directamente por WhatsApp para coordinar el siguiente paso.',
+    name: 'Nombre y apellido', phone: 'Teléfono / WhatsApp', email: 'Correo electrónico',
+    service: 'Servicio de interés', servicePlaceholder: 'Seleccioná un servicio', location: 'Departamento o localidad',
+    message: '¿Qué necesitás resolver?', submit: 'Enviar solicitud por WhatsApp', optional: 'Opcional',
+  },
+  en: {
+    kicker: 'Service request', title: 'Tell us what your field needs.',
+    intro: 'Complete the details and we will receive your request directly on WhatsApp to arrange the next step.',
+    name: 'Full name', phone: 'Phone / WhatsApp', email: 'Email address',
+    service: 'Service of interest', servicePlaceholder: 'Select a service', location: 'Department or location',
+    message: 'What do you need to solve?', submit: 'Send request via WhatsApp', optional: 'Optional',
+  },
+  pt: {
+    kicker: 'Solicitação de serviço', title: 'Conte o que seu campo precisa.',
+    intro: 'Preencha os dados e receberemos sua solicitação diretamente pelo WhatsApp para combinar o próximo passo.',
+    name: 'Nome completo', phone: 'Telefone / WhatsApp', email: 'E-mail',
+    service: 'Serviço de interesse', servicePlaceholder: 'Selecione um serviço', location: 'Departamento ou localidade',
+    message: 'O que você precisa resolver?', submit: 'Enviar solicitação pelo WhatsApp', optional: 'Opcional',
+  },
+} as const;
 
 const articleImages = [
   'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1200&auto=format&fit=crop&q=84',
@@ -38,7 +65,7 @@ const copy = {
       {type:'Infraestructura', title:'Cinco puntos de control antes de habilitar una nueva parcela', time:'4 min'},
     ],
     read:'Ver contenido', share:'Compartir', shareDone:'Enlace copiado',
-    ctaTitle:'Tu campo ya tiene información. Hagamos que trabaje a tu favor.', ctaText:'Contanos qué querés mejorar y coordinamos una primera conversación.', ctaButton:'Hablar con Consulpec',
+    ctaTitle:'Nuestro catálogo', ctaText:'Conocé los componentes y accesorios disponibles para tu alambrado eléctrico.', ctaButton:'Ver catálogo',
     footer:'Consultoría de campo · Mapeo · Intensificación productiva', rights:'Consulpec Paraguay. Todos los derechos reservados.',
   },
   en: {
@@ -57,7 +84,7 @@ const copy = {
       {type:'Practical guide',title:'How to size a production system without oversizing the investment',time:'8 min'},
       {type:'Infrastructure',title:'Five checkpoints before opening a new parcel',time:'4 min'},
     ],
-    read:'View content',share:'Share',shareDone:'Link copied',ctaTitle:'Your field already has information. Let’s put it to work.',ctaText:'Tell us what you want to improve and we will arrange a first conversation.',ctaButton:'Talk to Consulpec',footer:'Field consulting · Mapping · Production intensification',rights:'Consulpec Paraguay. All rights reserved.',
+    read:'View content',share:'Share',shareDone:'Link copied',ctaTitle:'Our catalog',ctaText:'Explore the components and accessories available for your electric fencing.',ctaButton:'View catalog',footer:'Field consulting · Mapping · Production intensification',rights:'Consulpec Paraguay. All rights reserved.',
   },
   pt: {
     nav:['Serviços','Galeria','Conteúdo técnico'],quote:'Agendar uma visita',eyebrow:'Inteligência aplicada ao campo',titleA:'Decisões de campo,',titleB:'tornadas visíveis.',lead:'Transformamos território, produção e investimento em um plano claro. Fazemos levantamentos, mapeamos e acompanhamos cada etapa para que o campo avance com dados.',how:'Conhecer nosso trabalho',projectsLink:'Explorar a galeria',active:'Projeto ativo',parcel:'Levantamento de parcela',action:'Da observação',concrete:'à ação concreta',metrics:['Leitura da propriedade','Acompanhamento técnico','Conhecimento local'],
@@ -75,7 +102,7 @@ const copy = {
       {type:'Guia prático',title:'Como dimensionar um sistema produtivo sem superdimensionar o investimento',time:'8 min'},
       {type:'Infraestrutura',title:'Cinco pontos de controle antes de habilitar uma nova parcela',time:'4 min'},
     ],
-    read:'Ver conteúdo',share:'Compartilhar',shareDone:'Link copiado',ctaTitle:'Seu campo já tem informação. Vamos colocá-la para trabalhar.',ctaText:'Conte o que deseja melhorar e marcaremos uma primeira conversa.',ctaButton:'Falar com a Consulpec',footer:'Consultoria de campo · Mapeamento · Intensificação produtiva',rights:'Consulpec Paraguai. Todos os direitos reservados.',
+    read:'Ver conteúdo',share:'Compartilhar',shareDone:'Link copiado',ctaTitle:'Nosso catálogo',ctaText:'Conheça os componentes e acessórios disponíveis para sua cerca elétrica.',ctaButton:'Ver catálogo',footer:'Consultoria de campo · Mapeamento · Intensificação produtiva',rights:'Consulpec Paraguai. Todos os direitos reservados.',
   },
 } as const;
 
@@ -110,7 +137,7 @@ export default function Home() {
             {(['es', 'en', 'pt'] as const).map((language) => <button className={lang === language ? 'active' : ''} type="button" key={language} onClick={() => setLang(language)} aria-pressed={lang === language}>{language.toUpperCase()}</button>)}
           </div>
           <button className="mobile-menu" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label="Menu" aria-expanded={menuOpen} aria-controls="primary-navigation"><Menu size={21}/></button>
-          <a className="quote-link" href="https://wa.me/595981413587" target="_blank" rel="noreferrer">{t.quote} <ArrowUpRight size={17} /></a>
+          <a className="quote-link" href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer">{t.quote} <ArrowUpRight size={17} /></a>
         </div>
       </header>
 
@@ -145,7 +172,7 @@ export default function Home() {
       </section>
 
       <div id="proyectos" className="gallery-anchor">
-        <StickyScroll title={t.galleryTitle} accent={t.galleryAccent} intro={t.galleryIntro} locationLabel={t.galleryLocation} />
+        <StickyScroll title={t.galleryTitle} accent={t.galleryAccent} intro={t.galleryIntro} request={requestCopy[lang]} services={t.services.map((service) => service.title)} whatsappNumber={WHATSAPP_NUMBER} />
       </div>
 
       <section className="section knowledge" id="conocimiento">
@@ -153,14 +180,14 @@ export default function Home() {
         <div className="article-grid">{t.articles.map((article,index) => <article className="article-card" key={article.title}><div className="article-img"><img src={articleImages[index]} alt="Trabajo de campo"/><span>{article.type}</span></div><div className="article-body"><small>{article.time}</small><h3>{article.title}</h3><div><a href="https://www.instagram.com/consulpecpy/" target="_blank" rel="noreferrer">{t.read}<ExternalLink size={14}/></a><button type="button" onClick={() => shareArticle(index,article.title)}><Share2 size={14}/>{shared === index ? t.shareDone : t.share}</button></div></div></article>)}</div>
       </section>
 
-      <section className="closing-cta" id="contacto"><h2>{t.ctaTitle}</h2><p>{t.ctaText}</p><a href="https://wa.me/595981413587" target="_blank" rel="noreferrer">{t.ctaButton}<ArrowUpRight size={18}/></a></section>
+      <section className="closing-cta catalog-cta" id="catalogo"><p className="section-kicker">Consulpec</p><h2>{t.ctaTitle}</h2><p>{t.ctaText}</p><Link href="/catalogo">{t.ctaButton}<ArrowUpRight size={18}/></Link></section>
 
       <footer>
         <div className="footer-left">
           <a className="brand-logo footer-logo" href="#inicio" aria-label="Consulpec — Inicio"><img src="/logo-consulpec-mark.png" alt="Consulpec" /></a>
           <div className="footer-socials">
-            <a className="social-button" href="https://www.instagram.com/consulpecpy/" target="_blank" rel="noreferrer"><img className="social-logo" src="https://cdn.simpleicons.org/instagram/a8e84a" alt=""/>Instagram</a>
-            <a className="social-button whatsapp" href="https://wa.me/595981413587" target="_blank" rel="noreferrer"><MessageCircle size={17}/>WhatsApp</a>
+            <a className="social-button" href="https://www.instagram.com/consulpecpy/" target="_blank" rel="noreferrer" aria-label="Instagram" title="Instagram"><img className="social-logo" src="https://cdn.simpleicons.org/instagram/a8e84a" alt=""/></a>
+            <a className="social-button whatsapp" href={`https://wa.me/${WHATSAPP_NUMBER}`} target="_blank" rel="noreferrer" aria-label="WhatsApp" title="WhatsApp"><img className="social-logo" src="https://cdn.simpleicons.org/whatsapp/ffffff" alt=""/></a>
           </div>
           <span className="footer-rights">© 2026 {t.rights}</span>
         </div>

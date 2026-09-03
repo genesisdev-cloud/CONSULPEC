@@ -2,13 +2,30 @@
 
 import { ReactLenis } from 'lenis/react';
 import React, { forwardRef } from 'react';
-import { MapPin } from 'lucide-react';
+import { ArrowUpRight, MapPin } from 'lucide-react';
+
+type RequestCopy = {
+  kicker: string;
+  title: string;
+  intro: string;
+  name: string;
+  phone: string;
+  email: string;
+  service: string;
+  servicePlaceholder: string;
+  location: string;
+  message: string;
+  submit: string;
+  optional: string;
+};
 
 type StickyScrollProps = {
   title: string;
   accent: string;
   intro: string;
-  locationLabel: string;
+  request: RequestCopy;
+  services: readonly string[];
+  whatsappNumber: string;
 };
 
 const leftImages = [
@@ -42,7 +59,27 @@ const GalleryImage = ({ src, index, className }: { src: string; index: number; c
 );
 
 const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
-  ({ title, accent, intro, locationLabel }, ref) => {
+  ({ title, accent, intro, request, services, whatsappNumber }, ref) => {
+    const submitRequest = (event: React.SyntheticEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      const data = new FormData(event.currentTarget);
+      const value = (key: string) => {
+        const field = data.get(key);
+        return typeof field === 'string' ? field : '';
+      };
+      const lines = [
+        'Hola Consulpec, quiero solicitar un servicio.',
+        '',
+        `Nombre: ${value('name')}`,
+        `Teléfono: ${value('phone')}`,
+        `Correo: ${value('email') || 'No indicado'}`,
+        `Servicio: ${value('service')}`,
+        `Ubicación: ${value('location')}`,
+        `Necesidad: ${value('message')}`,
+      ];
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(lines.join('\n'))}`, '_blank', 'noopener,noreferrer');
+    };
+
     return (
       <ReactLenis root>
         <section ref={ref} className="gallery-scroll bg-[#071e18] text-white">
@@ -71,13 +108,21 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
             </div>
           </div>
 
-          <div className="relative overflow-hidden bg-[#071e18] px-4 pt-20 text-center">
-            <p className="translate-y-[2.5vw] text-[15vw] font-semibold uppercase leading-none tracking-[-.08em] text-transparent [background:linear-gradient(90deg,#a8e84a,#365c4e)] [background-clip:text]">
-              Consulpec
-            </p>
-            <div className="relative z-10 grid min-h-40 place-content-center rounded-t-[50%] bg-[#0d2a22] text-[10px] font-bold uppercase tracking-[.2em] text-white/50">
-              {locationLabel}
+          <div className="request-section" id="solicitud">
+            <div className="request-copy">
+              <p>{request.kicker}</p>
+              <h3>{request.title}</h3>
+              <span>{request.intro}</span>
             </div>
+            <form className="request-form" onSubmit={submitRequest}>
+              <label><span>{request.name}</span><input name="name" type="text" autoComplete="name" required /></label>
+              <label><span>{request.phone}</span><input name="phone" type="tel" autoComplete="tel" required /></label>
+              <label><span>{request.email} <small>{request.optional}</small></span><input name="email" type="email" autoComplete="email" /></label>
+              <label><span>{request.service}</span><select name="service" defaultValue="" required><option value="" disabled>{request.servicePlaceholder}</option>{services.map((service) => <option key={service} value={service}>{service}</option>)}</select></label>
+              <label><span>{request.location}</span><input name="location" type="text" autoComplete="address-level1" required /></label>
+              <label className="request-message"><span>{request.message}</span><textarea name="message" rows={4} required /></label>
+              <button type="submit">{request.submit}<ArrowUpRight size={18}/></button>
+            </form>
           </div>
         </section>
       </ReactLenis>
