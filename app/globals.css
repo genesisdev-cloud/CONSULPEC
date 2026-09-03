@@ -107,6 +107,7 @@ h1 em { display:block; color:var(--lime-dark); font-family:Georgia,'Times New Ro
 .request-form .request-actions button:hover { transform:translateY(-1px); }
 .request-whatsapp { background:#1f9f5d; }
 .request-whatsapp:hover { background:#18834c; }
+.request-whatsapp img { width:19px; height:19px; object-fit:contain; }
 .request-email { background:var(--deep); }
 .request-email:hover { background:#183f34; }
 .request-email:disabled { cursor:wait; opacity:.72; }
@@ -171,6 +172,9 @@ footer { min-height:270px; display:grid; grid-template-columns:1fr auto 1fr; ali
 .catalog-whatsapp { position:fixed; z-index:30; right:24px; bottom:24px; display:grid; width:58px; height:58px; place-items:center; border-radius:50%; background:#1f9f5d; box-shadow:0 14px 38px rgba(6,48,28,.32); transition:transform .2s,box-shadow .2s; }
 .catalog-whatsapp:hover { transform:translateY(-3px); box-shadow:0 18px 44px rgba(6,48,28,.42); }
 .catalog-whatsapp img { width:27px; height:27px; }
+.floating-whatsapp { position:fixed; z-index:30; right:24px; bottom:24px; display:grid; width:58px; height:58px; place-items:center; border-radius:50%; background:#1f9f5d; box-shadow:0 14px 38px rgba(6,48,28,.34); transition:transform .2s,box-shadow .2s; }
+.floating-whatsapp:hover { transform:translateY(-3px); box-shadow:0 18px 44px rgba(6,48,28,.44); }
+.floating-whatsapp img { width:28px; height:28px; object-fit:contain; }
 
 @media (max-width:1100px) {
   .site-header { grid-template-columns:1fr auto; }
@@ -244,6 +248,7 @@ footer { min-height:270px; display:grid; grid-template-columns:1fr auto 1fr; ali
   .catalog-open { display:none; }
   .catalog-viewer { height:calc(100vh - 70px); min-height:560px; }
   .catalog-whatsapp { right:18px; bottom:18px; width:56px; height:56px; }
+  .floating-whatsapp { right:18px; bottom:18px; width:56px; height:56px; }
 }
 
 @media (prefers-reduced-motion:reduce) { * { scroll-behavior:auto!important; transition:none!important; } }

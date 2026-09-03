@@ -11,6 +11,7 @@ import StickyScroll from '@/components/ui/sticky-scroll';
 type Lang = 'es' | 'en' | 'pt';
 
 const WHATSAPP_NUMBER = '595971164885';
+const WHATSAPP_FLOATING_MESSAGE = 'Hola Consulpec, visité su página web y quisiera recibir más información sobre sus servicios.';
 
 const requestCopy = {
   es: {
@@ -204,6 +205,8 @@ export default function Home() {
         </nav>
         <a className="genesis-credit" href="https://www.genesis.com.py/" target="_blank" rel="noreferrer">Desarrollado por <strong>Génesis</strong><ArrowUpRight size={15}/></a>
       </footer>
+
+      <a className="floating-whatsapp" href={`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_FLOATING_MESSAGE)}`} target="_blank" rel="noreferrer" aria-label="Consultar por WhatsApp" title="Consultar por WhatsApp"><img src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="" /></a>
     </main>
   );
 }

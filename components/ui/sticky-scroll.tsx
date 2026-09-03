@@ -2,7 +2,7 @@
 
 import { ReactLenis } from 'lenis/react';
 import React, { forwardRef, useState } from 'react';
-import { ArrowUpRight, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { ArrowUpRight, Mail, MapPin } from 'lucide-react';
 
 const CORPORATE_EMAIL = 'comercial@consulpec.com.py';
 
@@ -180,7 +180,7 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
               <label><span>{request.location}</span><input name="location" type="text" autoComplete="address-level1" required /></label>
               <label className="request-message"><span>{request.message}</span><textarea name="message" rows={4} required /></label>
               <div className="request-actions">
-                <button className="request-whatsapp" type="button" onClick={submitWhatsApp}><MessageCircle size={18}/>{request.whatsappSubmit}<ArrowUpRight size={17}/></button>
+                <button className="request-whatsapp" type="button" onClick={submitWhatsApp}><img src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="" />{request.whatsappSubmit}<ArrowUpRight size={17}/></button>
                 <button className="request-email" type="submit" disabled={emailStatus === 'sending'}><Mail size={18}/><span>{emailStatus === 'sending' ? request.sending : request.emailSubmit}<small>{CORPORATE_EMAIL}</small></span><ArrowUpRight size={17}/></button>
               </div>
               {emailStatus !== 'idle' && <p className={`request-status ${emailStatus}`} role="status">{request[emailStatus]}</p>}
