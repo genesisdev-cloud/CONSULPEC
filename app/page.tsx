@@ -156,7 +156,7 @@ export default function Home() {
           <div className="hero-cta"><a className="button-primary" href="#servicios">{t.how} <ArrowUpRight size={18} /></a></div>
         </div>
         <div className="hero-visual" aria-label="Trabajo de campo y alambrado eléctrico">
-          <img src="https://images.unsplash.com/photo-1576159600338-11e2157fbcf2?w=1600&auto=format&fit=crop&q=88" alt="Rostro de un bovino en el campo" />
+          <img src="/images/hero-cow.jpeg" alt="Bovino de Consulpec en el campo" />
           <div className="map-card"><span className="map-pin"><MapPin size={17} /></span><div><small>{t.active}</small><strong>{t.parcel}</strong></div><span className="status-dot" /></div>
           <svg className="contour" viewBox="0 0 520 690" aria-hidden="true"><path d="M468 36C349 79 402 170 292 208C182 246 152 335 232 402C312 469 273 539 168 575C103 597 66 627 45 668" /><path d="M510 74C398 111 449 198 331 241C213 284 199 341 274 410C349 479 323 568 207 606C152 624 119 647 94 683" /></svg>
         </div>

@@ -34,31 +34,29 @@ type StickyScrollProps = {
   whatsappNumber: string;
 };
 
-const leftImages = [
-  'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1636150320841-82b350a92c54?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1598958944683-b5e33434cb89?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1645727527942-f12e14a0c841?w=1000&auto=format&fit=crop&q=82',
+type GalleryItem = { src: string; alt: string; position?: string };
+
+const leftImages: GalleryItem[] = [
+  { src: '/images/gallery/field-01.jpeg', alt: 'Instalación de alambrado eléctrico en parcela' },
+  { src: '/images/gallery/field-05.jpeg', alt: 'Poste con aisladores en campo de pastoreo', position: '50% 58%' },
+  { src: '/images/gallery/field-09.jpeg', alt: 'Carretel para instalación de cerca eléctrica', position: '50% 60%' },
 ];
 
-const centerImages = [
-  'https://images.unsplash.com/photo-1495107334309-fcf20504a5ab?w=1000&auto=format&fit=crop&q=86',
-  'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1000&auto=format&fit=crop&q=86',
-  'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1000&auto=format&fit=crop&q=86',
+const centerImages: GalleryItem[] = [
+  { src: '/images/gallery/field-02.jpeg', alt: 'Bovino en establecimiento ganadero', position: '50% 58%' },
+  { src: '/images/gallery/field-07.jpeg', alt: 'Ganado entre palmares del establecimiento', position: '50% 64%' },
+  { src: '/images/gallery/field-03.jpeg', alt: 'División de parcelas entre palmares', position: '50% 58%' },
 ];
 
-const rightImages = [
-  'https://images.unsplash.com/photo-1486754735734-325b5831c3ad?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1713559667017-a847816d55cf?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1530267981375-f0de937f5f13?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1598958944683-b5e33434cb89?w=1000&auto=format&fit=crop&q=82',
-  'https://images.unsplash.com/photo-1589923188900-85dae523342b?w=1000&auto=format&fit=crop&q=82',
+const rightImages: GalleryItem[] = [
+  { src: '/images/gallery/field-08.jpeg', alt: 'Asesoramiento técnico junto al productor', position: '50% 54%' },
+  { src: '/images/gallery/field-06.jpeg', alt: 'Relevamiento digital realizado a caballo', position: '50% 68%' },
+  { src: '/images/gallery/field-04.jpeg', alt: 'Recorrido de campo a caballo', position: '50% 60%' },
 ];
 
-const GalleryImage = ({ src, index, className }: { src: string; index: number; className?: string }) => (
+const GalleryImage = ({ item, index, className }: { item: GalleryItem; index: number; className?: string }) => (
   <figure className={`group relative w-full overflow-hidden bg-[#18392f] ${className ?? ''}`}>
-    <img src={src} alt={`Trabajo rural y producción de campo ${index + 1}`} className="h-full w-full object-cover saturate-[.82] transition-all duration-700 group-hover:scale-[1.035] group-hover:saturate-100" loading={index > 2 ? 'lazy' : 'eager'} />
+    <img src={item.src} alt={item.alt} style={{ objectPosition: item.position ?? 'center' }} className="h-full w-full object-cover saturate-[.88] transition-all duration-700 group-hover:scale-[1.035] group-hover:saturate-100" loading={index > 2 ? 'lazy' : 'eager'} />
     <span className="absolute inset-0 bg-gradient-to-t from-[#071e18]/45 via-transparent to-transparent" />
     <span className="absolute bottom-4 left-4 flex items-center gap-2 text-[9px] font-bold uppercase tracking-[.16em] text-white/90"><MapPin className="size-3 text-[#a8e84a]" /> Paraguay · 0{index + 1}</span>
   </figure>
@@ -154,15 +152,15 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
 
           <div className="gallery-columns relative z-10 grid grid-cols-2 gap-1 bg-[#071e18] p-1 md:grid-cols-12 md:gap-2 md:p-2">
             <div className="col-span-1 grid gap-1 md:col-span-4 md:gap-2">
-              {leftImages.map((src, index) => <GalleryImage key={src} src={src} index={index} className="h-[46vh] min-h-72 rounded-sm md:h-[31rem]" />)}
+              {leftImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index} className="h-[46vh] min-h-72 rounded-sm md:h-[34rem]" />)}
             </div>
 
             <div className="gallery-center col-span-1 grid h-fit gap-1 md:col-span-4 md:grid-rows-3 md:gap-2">
-              {centerImages.map((src, index) => <GalleryImage key={src} src={src} index={index + 5} className="h-[46vh] min-h-72 rounded-sm md:h-auto md:min-h-0" />)}
+              {centerImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index + 3} className="h-[46vh] min-h-72 rounded-sm md:h-auto md:min-h-0" />)}
             </div>
 
             <div className="col-span-2 grid grid-cols-2 gap-1 md:col-span-4 md:grid-cols-1 md:gap-2">
-              {rightImages.map((src, index) => <GalleryImage key={src} src={src} index={index + 8} className="h-[38vh] min-h-64 rounded-sm md:h-[31rem]" />)}
+              {rightImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index + 6} className={`h-[42vh] min-h-72 rounded-sm md:h-[34rem] ${index === rightImages.length - 1 ? 'col-span-2 md:col-span-1' : ''}`} />)}
             </div>
           </div>
 
