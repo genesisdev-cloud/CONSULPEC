@@ -16,7 +16,7 @@ const WHATSAPP_FLOATING_MESSAGE = 'Hola Consulpec, visité su página web y quis
 const requestCopy = {
   es: {
     kicker: 'Solicitud de servicio', title: 'Contanos qué necesita tu campo.',
-    intro: 'Completá los datos y recibiremos tu solicitud directamente por WhatsApp para coordinar el siguiente paso.',
+    intro: 'Completá los datos y enviá tu solicitud por WhatsApp o correo para coordinar el siguiente paso.',
     name: 'Nombre y apellido', phone: 'Teléfono / WhatsApp', email: 'Correo electrónico',
     service: 'Servicio de interés', servicePlaceholder: 'Seleccioná un servicio', location: 'Departamento o localidad',
     message: '¿Qué necesitás resolver?', whatsappSubmit: 'Enviar por WhatsApp', emailSubmit: 'Enviar por correo',
@@ -25,7 +25,7 @@ const requestCopy = {
   },
   en: {
     kicker: 'Service request', title: 'Tell us what your field needs.',
-    intro: 'Complete the details and we will receive your request directly on WhatsApp to arrange the next step.',
+    intro: 'Complete the details and send your request by WhatsApp or email to arrange the next step.',
     name: 'Full name', phone: 'Phone / WhatsApp', email: 'Email address',
     service: 'Service of interest', servicePlaceholder: 'Select a service', location: 'Department or location',
     message: 'What do you need to solve?', whatsappSubmit: 'Send via WhatsApp', emailSubmit: 'Send via email',
@@ -34,7 +34,7 @@ const requestCopy = {
   },
   pt: {
     kicker: 'Solicitação de serviço', title: 'Conte o que seu campo precisa.',
-    intro: 'Preencha os dados e receberemos sua solicitação diretamente pelo WhatsApp para combinar o próximo passo.',
+    intro: 'Preencha os dados e envie sua solicitação pelo WhatsApp ou e-mail para combinar o próximo passo.',
     name: 'Nome completo', phone: 'Telefone / WhatsApp', email: 'E-mail',
     service: 'Serviço de interesse', servicePlaceholder: 'Selecione um serviço', location: 'Departamento ou localidade',
     message: 'O que você precisa resolver?', whatsappSubmit: 'Enviar pelo WhatsApp', emailSubmit: 'Enviar por e-mail',
