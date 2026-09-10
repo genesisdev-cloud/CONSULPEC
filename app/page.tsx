@@ -61,7 +61,7 @@ const copy = {
       { n:'01', title:'Relevamiento y mapeo', desc:'Leemos el establecimiento en terreno y ordenamos la información espacial para detectar oportunidades y restricciones.', steps:['Visita y toma de datos','Georreferenciación y lectura de parcelas','Validación junto al productor'], deliver:'Mapa técnico + informe de hallazgos' },
       { n:'02', title:'Intensificación productiva', desc:'Diseñamos una hoja de ruta para aprovechar mejor pasturas, agua, infraestructura y manejo.', steps:['Diagnóstico productivo','Escenarios de mejora','Plan de implementación por etapas'], deliver:'Proyecto dimensionado + prioridades' },
       { n:'03', title:'Acompañamiento técnico', desc:'Seguimos la ejecución, medimos avances y ajustamos decisiones con el equipo del establecimiento.', steps:['Plan de trabajo','Visitas de seguimiento','Revisión de indicadores'], deliver:'Informe + recomendaciones accionables' },
-      { n:'04', title:'Flujos de inversión', desc:'Organizamos la inversión por etapas para priorizar recursos y dar previsibilidad a cada decisión.', steps:['Presupuesto por componentes','Secuencia de desembolsos','Comparación de alternativas'], deliver:'Flujo de inversión + escenario recomendado' },
+      { n:'04', title:'Flujo de caja', desc:'Transformamos el proyecto técnico y financiero en una proyección clara de ingresos, egresos y necesidades de recursos a lo largo del tiempo.', steps:['Proyección de ingresos y egresos','Secuencia de desembolsos y cobros','Análisis de flujo de caja','Comparación de alternativas'], deliver:'Flujo de caja proyectado + escenario financiero recomendado' },
     ],
     process: 'Cómo trabajamos', processSteps: ['Escuchamos el objetivo', 'Medimos el campo', 'Diseñamos el proyecto', 'Acompañamos la ejecución'],
     galleryEyebrow:'Proyectos en campo', galleryTitle:'El campo cuenta su evolución.', galleryAccent:'Cada avance deja una huella.', galleryIntro:'Una mirada continua al campo, la infraestructura y las decisiones que convierten un establecimiento en un sistema productivo más claro.', galleryLocation:'Trabajo de campo · Paraguay',
@@ -82,7 +82,7 @@ const copy = {
       {n:'01',title:'Surveying and mapping',desc:'We assess the property on site and organize spatial information to identify opportunities and constraints.',steps:['Field visit and data capture','Georeferencing and parcel analysis','Validation with the producer'],deliver:'Technical map + findings report'},
       {n:'02',title:'Production intensification',desc:'We design a roadmap to make better use of pasture, water, infrastructure and management.',steps:['Production diagnosis','Improvement scenarios','Phased implementation plan'],deliver:'Sized project + priorities'},
       {n:'03',title:'Technical support',desc:'We follow execution, measure progress and adjust decisions with the farm team.',steps:['Work plan','Follow-up visits','Indicator review'],deliver:'Project log + actionable recommendations'},
-      {n:'04',title:'Investment flows',desc:'We translate the technical project into investment needs to organize timing and resources.',steps:['Component-based budget','Disbursement sequence','Alternative comparison'],deliver:'Investment flow + recommended scenario'},
+      {n:'04',title:'Cash flow',desc:'We transform the technical and financial project into a clear projection of income, expenses and resource needs over time.',steps:['Income and expense projection','Disbursement and collection schedule','Cash flow analysis','Alternative comparison'],deliver:'Projected cash flow + recommended financial scenario'},
     ],
     process:'How we work',processSteps:['We understand the goal','We measure the field','We design the project','We support execution'],
     galleryEyebrow:'Projects in the field',galleryTitle:'The work is measured.',galleryAccent:'It can also be seen.',galleryIntro:'A continuous view of territory, infrastructure and the decisions that turn a property into a clearer production system.',galleryLocation:'Field work · Paraguay',
@@ -100,7 +100,7 @@ const copy = {
       {n:'01',title:'Levantamento e mapeamento',desc:'Avaliamos a propriedade no terreno e organizamos a informação espacial para detectar oportunidades e restrições.',steps:['Visita e coleta de dados','Georreferenciamento e leitura de parcelas','Validação com o produtor'],deliver:'Mapa técnico + relatório de achados'},
       {n:'02',title:'Intensificação produtiva',desc:'Desenhamos um roteiro para aproveitar melhor pastagens, água, infraestrutura e manejo.',steps:['Diagnóstico produtivo','Cenários de melhoria','Plano de implementação por etapas'],deliver:'Projeto dimensionado + prioridades'},
       {n:'03',title:'Acompanhamento técnico',desc:'Acompanhamos a execução, medimos avanços e ajustamos decisões com a equipe da propriedade.',steps:['Plano de trabalho','Visitas de acompanhamento','Revisão de indicadores'],deliver:'Registro + recomendações práticas'},
-      {n:'04',title:'Fluxos de investimento',desc:'Traduzimos o projeto técnico em necessidades de investimento para organizar prazos e recursos.',steps:['Orçamento por componentes','Sequência de desembolsos','Comparação de alternativas'],deliver:'Fluxo de investimento + cenário recomendado'},
+      {n:'04',title:'Fluxo de caixa',desc:'Transformamos o projeto técnico e financeiro em uma projeção clara de receitas, despesas e necessidades de recursos ao longo do tempo.',steps:['Projeção de receitas e despesas','Sequência de desembolsos e recebimentos','Análise de fluxo de caixa','Comparação de alternativas'],deliver:'Fluxo de caixa projetado + cenário financeiro recomendado'},
     ],
     process:'Como trabalhamos',processSteps:['Entendemos o objetivo','Medimos o campo','Desenhamos o projeto','Acompanhamos a execução'],
     galleryEyebrow:'Projetos no campo',galleryTitle:'O trabalho é medido.',galleryAccent:'E também pode ser visto.',galleryIntro:'Um olhar contínuo sobre território, infraestrutura e decisões que transformam uma propriedade em um sistema produtivo mais claro.',galleryLocation:'Trabalho de campo · Paraguai',
@@ -155,8 +155,8 @@ export default function Home() {
           <p className="hero-lead">{t.lead}</p>
           <div className="hero-cta"><a className="button-primary" href="#servicios">{t.how} <ArrowUpRight size={18} /></a></div>
         </div>
-        <div className="hero-visual" aria-label="Trabajo de campo y alambrado eléctrico">
-          <img src="/images/hero-cow.jpeg" alt="Bovino de Consulpec en el campo" />
+        <div className="hero-visual" aria-label="Ganado de Consulpec en pastura">
+          <img src="/images/hero-cow.jpeg" alt="Ganado de Consulpec en pastura" />
           <div className="map-card"><span className="map-pin"><MapPin size={17} /></span><div><small>{t.active}</small><strong>{t.parcel}</strong></div><span className="status-dot" /></div>
           <svg className="contour" viewBox="0 0 520 690" aria-hidden="true"><path d="M468 36C349 79 402 170 292 208C182 246 152 335 232 402C312 469 273 539 168 575C103 597 66 627 45 668" /><path d="M510 74C398 111 449 198 331 241C213 284 199 341 274 410C349 479 323 568 207 606C152 624 119 647 94 683" /></svg>
         </div>
@@ -171,7 +171,7 @@ export default function Home() {
             <article className="service-card" key={service.n}>
               <h3>{service.title}</h3><p>{service.desc}</p>
               <ol>{service.steps.map((step) => <li key={step}>{step}</li>)}</ol>
-              <div className="deliverable"><span><small>{lang === 'en' ? 'YOU RECEIVE' : lang === 'pt' ? 'VOCÊ RECEBE' : 'RECIBÍS'}</small>{service.deliver}</span></div>
+              <div className="deliverable"><span><small>{service.n === '04' ? (lang === 'en' ? 'RESULT' : lang === 'pt' ? 'RESULTADO' : 'RESULTADO') : (lang === 'en' ? 'YOU RECEIVE' : lang === 'pt' ? 'VOCÊ RECEBE' : 'RECIBÍS')}</small>{service.deliver}</span></div>
             </article>
           ))}
         </div>
