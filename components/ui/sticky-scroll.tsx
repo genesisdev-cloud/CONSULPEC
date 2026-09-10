@@ -36,14 +36,13 @@ type StickyScrollProps = {
 
 type GalleryItem = { src: string; alt: string; position?: string; number: number };
 
-const galleryImages: GalleryItem[] = Array.from({ length: 13 }, (_, index) => {
-  const number = index + 1;
-  return {
-    src: `/images/gallery/field-${String(number).padStart(2, '0')}.jpeg`,
-    alt: `Trabajo de campo de Consulpec en Paraguay, imagen ${number}`,
-    number,
-  };
-});
+const galleryImageSources = [1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13];
+
+const galleryImages: GalleryItem[] = galleryImageSources.map((sourceNumber, index) => ({
+  src: `/images/gallery/field-${String(sourceNumber).padStart(2, '0')}.jpeg`,
+  alt: `Trabajo de campo de Consulpec en Paraguay, imagen ${index + 1}`,
+  number: index + 1,
+}));
 
 const GalleryImage = ({ item, index, className }: { item: GalleryItem; index: number; className?: string }) => (
   <figure className={`group relative w-full overflow-hidden bg-[#18392f] ${className ?? ''}`}>

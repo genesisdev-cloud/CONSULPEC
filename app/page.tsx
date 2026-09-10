@@ -45,8 +45,8 @@ const requestCopy = {
 
 const articleImages = [
   'https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=1200&auto=format&fit=crop&q=84',
-  'https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=1200&auto=format&fit=crop&q=84',
-  'https://images.unsplash.com/photo-1645727527942-f12e14a0c841?w=1200&auto=format&fit=crop&q=84',
+  '/images/gallery/field-10.jpeg',
+  '/images/gallery/field-05.jpeg',
 ];
 
 const copy = {
