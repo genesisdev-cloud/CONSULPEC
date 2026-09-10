@@ -44,6 +44,10 @@ const galleryImages: GalleryItem[] = galleryImageSources.map((sourceNumber, inde
   number: index + 1,
 }));
 
+const leftImages = galleryImages.slice(0, 4);
+const centerImages = galleryImages.slice(4, 7);
+const rightImages = galleryImages.slice(7);
+
 const GalleryImage = ({ item, index, className }: { item: GalleryItem; index: number; className?: string }) => (
   <figure className={`group relative w-full overflow-hidden bg-[#18392f] ${className ?? ''}`}>
     <img src={item.src} alt={item.alt} style={{ objectPosition: item.position ?? 'center' }} className="h-full w-full object-cover saturate-[.88] transition-all duration-700 group-hover:scale-[1.035] group-hover:saturate-100" loading={index > 2 ? 'lazy' : 'eager'} />
@@ -140,8 +144,18 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
             </div>
           </div>
 
-          <div className="gallery-columns relative z-10 columns-1 gap-1 bg-[#071e18] p-1 md:columns-2 md:gap-2 md:p-2 xl:columns-3">
-            {galleryImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index} className="mb-1 aspect-[3/4] break-inside-avoid rounded-sm md:mb-2" />)}
+          <div className="gallery-columns relative z-10 grid grid-cols-2 gap-1 bg-[#071e18] p-1 md:grid-cols-12 md:gap-2 md:p-2">
+            <div className="col-span-1 grid gap-1 md:col-span-4 md:gap-2">
+              {leftImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index} className="h-[46vh] min-h-72 rounded-sm md:h-[34rem]" />)}
+            </div>
+
+            <div className="gallery-center col-span-1 grid h-fit gap-1 md:col-span-4 md:grid-rows-3 md:gap-2">
+              {centerImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index + leftImages.length} className="h-[46vh] min-h-72 rounded-sm md:h-auto md:min-h-0" />)}
+            </div>
+
+            <div className="col-span-2 grid grid-cols-2 gap-1 md:col-span-4 md:grid-cols-1 md:gap-2">
+              {rightImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index + leftImages.length + centerImages.length} className="h-[42vh] min-h-72 rounded-sm md:h-[34rem]" />)}
+            </div>
           </div>
 
           <div className="request-section" id="solicitud">
