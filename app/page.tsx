@@ -11,6 +11,9 @@ import StickyScroll from '@/components/ui/sticky-scroll';
 type Lang = 'es' | 'en' | 'pt';
 
 const WHATSAPP_NUMBER = '595971164885';
+const MAP_QUERY = 'Consulpec E.A.S., República Dominicana 997, Asunción, Paraguay';
+const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&output=embed`;
+const MAP_DIRECTIONS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
 
 const requestCopy = {
   es: {
@@ -77,7 +80,7 @@ const copy = {
     ],
     read:'Ver contenido', share:'Compartir', shareDone:'Enlace copiado',
     ctaTitle:'Nuestro catálogo', ctaText:'Conocé los componentes y accesorios disponibles para tu alambrado eléctrico.', ctaButton:'Ver catálogo',
-    footer:'Consultoría de campo · Mapeo · Intensificación productiva', rights:'Consulpec Paraguay. Todos los derechos reservados.',
+    footer:'Consultoría de campo · Mapeo · Intensificación productiva', rights:'Consulpec Paraguay. Todos los derechos reservados.', mapTitle:'Encontranos en Asunción', mapAddress:'República Dominicana 997, Asunción', mapDirections:'Cómo llegar', mapFrameTitle:'Ubicación de Consulpec E.A.S. en Google Maps',
   },
   en: {
     nav: ['Services', 'Gallery', 'Technical content'], quote: 'Arrange a field visit', eyebrow: 'Intelligence applied to the field', titleA: 'Field decisions,', titleB: 'made visible.', lead: 'We turn territory, production and investment into a clear plan. We survey, map and support each stage so your operation can move forward with data.', how: 'See how we work', projectsLink: 'Explore the gallery', active: 'Active project', parcel: 'Parcel survey', action: 'From observation', concrete: 'to concrete action', metrics: ['Whole-farm assessment', 'One-to-one technical support', 'Local expertise'],
@@ -97,7 +100,7 @@ const copy = {
       {type:'Practical guide',title:'How to size a production system without oversizing the investment',time:'8 min'},
       {type:'Infrastructure',title:'Consulpec aims to multiply livestock production.',time:'4 min'},
     ],
-    read:'View content',share:'Share',shareDone:'Link copied',ctaTitle:'Our catalog',ctaText:'Explore the components and accessories available for your electric fencing.',ctaButton:'View catalog',footer:'Field consulting · Mapping · Production intensification',rights:'Consulpec Paraguay. All rights reserved.',
+    read:'View content',share:'Share',shareDone:'Link copied',ctaTitle:'Our catalog',ctaText:'Explore the components and accessories available for your electric fencing.',ctaButton:'View catalog',footer:'Field consulting · Mapping · Production intensification',rights:'Consulpec Paraguay. All rights reserved.',mapTitle:'Find us in Asunción',mapAddress:'República Dominicana 997, Asunción',mapDirections:'Get directions',mapFrameTitle:'Location of Consulpec E.A.S. on Google Maps',
   },
   pt: {
     nav:['Serviços','Galeria','Conteúdo técnico'],quote:'Agendar uma visita',eyebrow:'Inteligência aplicada ao campo',titleA:'Decisões de campo,',titleB:'tornadas visíveis.',lead:'Transformamos território, produção e investimento em um plano claro. Fazemos levantamentos, mapeamos e acompanhamos cada etapa para que o campo avance com dados.',how:'Conhecer nosso trabalho',projectsLink:'Explorar a galeria',active:'Projeto ativo',parcel:'Levantamento de parcela',action:'Da observação',concrete:'à ação concreta',metrics:['Leitura da propriedade','Acompanhamento técnico','Conhecimento local'],
@@ -117,7 +120,7 @@ const copy = {
       {type:'Guia prático',title:'Como dimensionar um sistema produtivo sem superdimensionar o investimento',time:'8 min'},
       {type:'Infraestrutura',title:'A Consulpec busca multiplicar a produção pecuária.',time:'4 min'},
     ],
-    read:'Ver conteúdo',share:'Compartilhar',shareDone:'Link copiado',ctaTitle:'Nosso catálogo',ctaText:'Conheça os componentes e acessórios disponíveis para sua cerca elétrica.',ctaButton:'Ver catálogo',footer:'Consultoria de campo · Mapeamento · Intensificação produtiva',rights:'Consulpec Paraguai. Todos os direitos reservados.',
+    read:'Ver conteúdo',share:'Compartilhar',shareDone:'Link copiado',ctaTitle:'Nosso catálogo',ctaText:'Conheça os componentes e acessórios disponíveis para sua cerca elétrica.',ctaButton:'Ver catálogo',footer:'Consultoria de campo · Mapeamento · Intensificação produtiva',rights:'Consulpec Paraguai. Todos os direitos reservados.',mapTitle:'Encontre-nos em Assunção',mapAddress:'República Dominicana 997, Assunção',mapDirections:'Como chegar',mapFrameTitle:'Localização da Consulpec E.A.S. no Google Maps',
   },
 } as const;
 
@@ -208,11 +211,23 @@ export default function Home() {
           </div>
           <span className="footer-rights">© 2026 {t.rights}</span>
         </div>
-        <nav className="footer-nav" aria-label={t.footerNavLabel}>
-          <a href="#servicios">{t.nav[0]}</a>
-          <a href="#proyectos">{t.nav[1]}</a>
-          <a href="#conocimiento">{t.nav[2]}</a>
-        </nav>
+        <section className="footer-map" aria-labelledby="footer-map-title">
+          <div className="footer-map-head">
+            <span className="footer-map-pin" aria-hidden="true"><MapPin size={19}/></span>
+            <div>
+              <h2 id="footer-map-title">{t.mapTitle}</h2>
+              <p>{t.mapAddress}</p>
+            </div>
+            <a href={MAP_DIRECTIONS_URL} target="_blank" rel="noreferrer">{t.mapDirections}<ArrowUpRight size={15}/></a>
+          </div>
+          <iframe
+            src={MAP_EMBED_URL}
+            title={t.mapFrameTitle}
+            loading="lazy"
+            allowFullScreen
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </section>
         <a className="genesis-credit" href="https://www.genesis.com.py/" target="_blank" rel="noreferrer">{t.developedBy} <strong>Génesis</strong><ArrowUpRight size={15}/></a>
       </footer>
 

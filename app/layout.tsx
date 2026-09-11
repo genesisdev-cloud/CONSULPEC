@@ -16,6 +16,12 @@ const organizationSchema = {
     '@type': 'Country',
     name: 'Paraguay',
   },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'República Dominicana 997',
+    addressLocality: 'Asunción',
+    addressCountry: 'PY',
+  },
   sameAs: ['https://www.instagram.com/consulpecpy/'],
   contactPoint: {
     '@type': 'ContactPoint',
