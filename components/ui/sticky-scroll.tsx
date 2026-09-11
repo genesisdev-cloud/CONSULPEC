@@ -23,6 +23,8 @@ type RequestCopy = {
   success: string;
   fallback: string;
   error: string;
+  whatsappIntro: string;
+  emailSubject: string;
 };
 
 type StickyScrollProps = {
@@ -32,15 +34,16 @@ type StickyScrollProps = {
   request: RequestCopy;
   services: readonly string[];
   whatsappNumber: string;
+  galleryImageAlt: string;
+  galleryCountry: string;
 };
 
-type GalleryItem = { src: string; alt: string; position?: string; number: number };
+type GalleryItem = { src: string; position?: string; number: number };
 
 const galleryImageSources = [1, 2, 3, 4, 6, 7, 8, 9, 11, 12, 13];
 
 const galleryImages: GalleryItem[] = galleryImageSources.map((sourceNumber, index) => ({
   src: `/images/gallery/field-${String(sourceNumber).padStart(2, '0')}.jpeg`,
-  alt: `Trabajo de campo de Consulpec en Paraguay, imagen ${index + 1}`,
   number: index + 1,
 }));
 
@@ -48,16 +51,16 @@ const leftImages = galleryImages.slice(0, 4);
 const centerImages = galleryImages.slice(4, 7);
 const rightImages = galleryImages.slice(7);
 
-const GalleryImage = ({ item, index, className }: { item: GalleryItem; index: number; className?: string }) => (
+const GalleryImage = ({ item, index, className, altPrefix, country }: { item: GalleryItem; index: number; className?: string; altPrefix: string; country: string }) => (
   <figure className={`group relative w-full overflow-hidden bg-[#18392f] ${className ?? ''}`}>
-    <img src={item.src} alt={item.alt} style={{ objectPosition: item.position ?? 'center' }} className="h-full w-full object-cover saturate-[.88] transition-all duration-700 group-hover:scale-[1.035] group-hover:saturate-100" loading={index > 2 ? 'lazy' : 'eager'} />
+    <img src={item.src} alt={`${altPrefix}, ${item.number}`} style={{ objectPosition: item.position ?? 'center' }} className="h-full w-full object-cover saturate-[.88] transition-all duration-700 group-hover:scale-[1.035] group-hover:saturate-100" loading={index > 2 ? 'lazy' : 'eager'} />
     <span className="absolute inset-0 bg-gradient-to-t from-[#071e18]/45 via-transparent to-transparent" />
-    <span className="absolute bottom-4 left-4 flex items-center gap-2 text-[9px] font-bold uppercase tracking-[.16em] text-white/90"><MapPin className="size-3 text-[#a8e84a]" /> Paraguay · {String(item.number).padStart(2, '0')}</span>
+    <span className="absolute bottom-4 left-4 flex items-center gap-2 text-[9px] font-bold uppercase tracking-[.16em] text-white/90"><MapPin className="size-3 text-[#a8e84a]" /> {country} · {String(item.number).padStart(2, '0')}</span>
   </figure>
 );
 
 const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
-  ({ title, accent, intro, request, services, whatsappNumber }, ref) => {
+  ({ title, accent, intro, request, services, whatsappNumber, galleryImageAlt, galleryCountry }, ref) => {
     const [emailStatus, setEmailStatus] = useState<'idle' | 'sending' | 'success' | 'fallback' | 'error'>('idle');
 
     const readForm = (form: HTMLFormElement) => {
@@ -73,10 +76,10 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
     };
 
     const requestLines = (data: ReturnType<typeof readForm>) => [
-        'Hola Consulpec, quiero solicitar un servicio.',
+        request.whatsappIntro,
         '',
-        `Nombre: ${data.name}`, `Teléfono: ${data.phone}`, `Correo: ${data.email}`,
-        `Servicio: ${data.service}`, `Ubicación: ${data.location}`, `Necesidad: ${data.message}`,
+        `${request.name}: ${data.name}`, `${request.phone}: ${data.phone}`, `${request.email}: ${data.email}`,
+        `${request.service}: ${data.service}`, `${request.location}: ${data.location}`, `${request.message}: ${data.message}`,
       ];
 
     const submitWhatsApp = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -95,7 +98,7 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
       const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
       if (!serviceId || !templateId || !publicKey) {
-        const subject = encodeURIComponent(`Solicitud de servicio — ${data.service}`);
+        const subject = encodeURIComponent(`${request.emailSubject} — ${data.service}`);
         const body = encodeURIComponent(requestLines(data).join('\n'));
         window.location.href = `mailto:${CORPORATE_EMAIL}?subject=${subject}&body=${body}`;
         setEmailStatus('fallback');
@@ -146,15 +149,15 @@ const StickyScroll = forwardRef<HTMLElement, StickyScrollProps>(
 
           <div className="gallery-columns relative z-10 grid grid-cols-2 gap-1 bg-[#071e18] p-1 md:grid-cols-12 md:gap-2 md:p-2">
             <div className="col-span-1 grid gap-1 md:col-span-4 md:gap-2">
-              {leftImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index} className="h-[46vh] min-h-72 rounded-sm md:h-[34rem]" />)}
+              {leftImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index} altPrefix={galleryImageAlt} country={galleryCountry} className="h-[46vh] min-h-72 rounded-sm md:h-[34rem]" />)}
             </div>
 
             <div className="gallery-center col-span-1 grid h-fit gap-1 md:col-span-4 md:grid-rows-3 md:gap-2">
-              {centerImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index + leftImages.length} className="h-[46vh] min-h-72 rounded-sm md:h-auto md:min-h-0" />)}
+              {centerImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index + leftImages.length} altPrefix={galleryImageAlt} country={galleryCountry} className="h-[46vh] min-h-72 rounded-sm md:h-auto md:min-h-0" />)}
             </div>
 
             <div className="col-span-2 grid grid-cols-2 gap-1 md:col-span-4 md:grid-cols-1 md:gap-2">
-              {rightImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index + leftImages.length + centerImages.length} className="h-[42vh] min-h-72 rounded-sm md:h-[34rem]" />)}
+              {rightImages.map((item, index) => <GalleryImage key={item.src} item={item} index={index + leftImages.length + centerImages.length} altPrefix={galleryImageAlt} country={galleryCountry} className="h-[42vh] min-h-72 rounded-sm md:h-[34rem]" />)}
             </div>
           </div>
 
