@@ -8,8 +8,17 @@ const WHATSAPP_MESSAGE = 'Hola Consulpec, eh visto el catálogo en su página we
 const WHATSAPP_URL = `https://wa.me/595971164885?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 export const metadata: Metadata = {
-  title: 'Catálogo | Consulpec',
+  title: 'Catálogo',
   description: 'Catálogo de componentes y accesorios para alambrado eléctrico de Consulpec.',
+  alternates: {
+    canonical: '/catalogo',
+  },
+  openGraph: {
+    title: 'Catálogo de productos | Consulpec',
+    description: 'Componentes y accesorios para alambrado eléctrico disponibles en Consulpec.',
+    url: '/catalogo',
+    type: 'website',
+  },
 };
 
 export default function CatalogoPage() {
