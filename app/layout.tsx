@@ -18,7 +18,6 @@ const organizationSchema = {
   },
   address: {
     '@type': 'PostalAddress',
-    streetAddress: 'República Dominicana 997',
     addressLocality: 'Asunción',
     addressCountry: 'PY',
   },

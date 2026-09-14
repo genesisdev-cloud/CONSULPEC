@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 
 const PDF_PATH = '/catalogo-consulpec.pdf';
-const WHATSAPP_MESSAGE = 'Hola Consulpec, eh visto el catálogo en su página web y estoy interesado en un producto';
+const WHATSAPP_MESSAGE = 'Hola Consulpec, he visto el catálogo en su página web y estoy interesado en un producto';
 const WHATSAPP_URL = `https://wa.me/595971164885?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
 export const metadata: Metadata = {
@@ -29,7 +29,18 @@ export default function CatalogoPage() {
         <Link className="catalog-brand" href="/" aria-label="Consulpec — Inicio"><Image src="/logo-consulpec-mark.png" alt="Consulpec" width={56} height={56} priority /></Link>
         <a className="catalog-open" href={PDF_PATH} target="_blank" rel="noreferrer">Abrir PDF<ExternalLink size={14}/></a>
       </header>
-      <iframe className="catalog-viewer" src={`${PDF_PATH}#view=FitH`} title="Catálogo de productos Consulpec" />
+      <section className="catalog-pages" aria-label="Catálogo completo de productos Consulpec">
+        <h1>Catálogo de productos</h1>
+        <p>8 páginas · Deslizá para ver todos los productos. Tocá una página para ampliarla.</p>
+        {Array.from({ length: 8 }, (_, index) => (
+          <figure className="catalog-sheet" key={index}>
+            <a href={`/images/catalogo/pagina-${index + 1}.jpg`} target="_blank" rel="noreferrer" aria-label={`Ampliar página ${index + 1} del catálogo`}>
+              <Image src={`/images/catalogo/pagina-${index + 1}.jpg`} alt={`Catálogo de Consulpec, página ${index + 1} de 8`} width={1800} height={1273} sizes="(max-width: 1000px) 100vw, 1000px" priority={index === 0} />
+            </a>
+            <figcaption>Página {index + 1} de 8</figcaption>
+          </figure>
+        ))}
+      </section>
       <a className="catalog-whatsapp" href={WHATSAPP_URL} target="_blank" rel="noreferrer" aria-label="Consultar productos por WhatsApp" title="Consultar por WhatsApp">
         <Image src="https://cdn.simpleicons.org/whatsapp/ffffff" alt="" width={27} height={27} unoptimized />
       </a>
