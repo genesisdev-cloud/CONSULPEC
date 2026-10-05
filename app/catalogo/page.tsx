@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { ArrowLeft, ExternalLink } from 'lucide-react';
 
 const PDF_PATH = '/catalogo-consulpec.pdf';
+const TOTAL_PAGES = 9;
 const WHATSAPP_MESSAGE = 'Hola Consulpec, he visto el catálogo en su página web y estoy interesado en un producto';
 const WHATSAPP_URL = `https://wa.me/595971164885?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`;
 
@@ -31,13 +32,13 @@ export default function CatalogoPage() {
       </header>
       <section className="catalog-pages" aria-label="Catálogo completo de productos Consulpec">
         <h1>Catálogo de productos</h1>
-        <p>8 páginas · Deslizá para ver todos los productos. Tocá una página para ampliarla.</p>
-        {Array.from({ length: 8 }, (_, index) => (
+        <p>{TOTAL_PAGES} páginas · Deslizá para ver todos los productos. Tocá una página para ampliarla.</p>
+        {Array.from({ length: TOTAL_PAGES }, (_, index) => (
           <figure className="catalog-sheet" key={index}>
             <a href={`/images/catalogo/pagina-${index + 1}.jpg`} target="_blank" rel="noreferrer" aria-label={`Ampliar página ${index + 1} del catálogo`}>
-              <Image src={`/images/catalogo/pagina-${index + 1}.jpg`} alt={`Catálogo de Consulpec, página ${index + 1} de 8`} width={1800} height={1273} sizes="(max-width: 1000px) 100vw, 1000px" priority={index === 0} />
+              <Image src={`/images/catalogo/pagina-${index + 1}.jpg`} alt={`Catálogo de Consulpec, página ${index + 1} de ${TOTAL_PAGES}`} width={1800} height={1273} sizes="(max-width: 1000px) 100vw, 1000px" priority={index === 0} />
             </a>
-            <figcaption>Página {index + 1} de 8</figcaption>
+            <figcaption>Página {index + 1} de {TOTAL_PAGES}</figcaption>
           </figure>
         ))}
       </section>
